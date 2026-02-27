@@ -34,7 +34,7 @@ app.set("views", path.join(__dirname, "src/views"));
 
 // rutas
 app.use("/", viewsRouter);
-app.use("/products", productsRouter);
+app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 
 // 🔹 servidor HTTP
