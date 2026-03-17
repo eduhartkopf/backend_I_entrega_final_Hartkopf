@@ -1,0 +1,17 @@
+<h1>Carrito</h1>
+
+{{#if cart.products.length}}
+  <div>
+    {{#each cart.products}}
+      <div style="border: 1px solid #ccc; margin: 10px 0; padding: 10px;">
+        <h2>{{this.product.title}}</h2>
+        <p><strong>Descripción:</strong> {{this.product.description}}</p>
+        <p><strong>Precio:</strong> ${{this.product.price}}</p>
+        <p><strong>Categoría:</strong> {{this.product.category}}</p>
+        <p><strong>Cantidad:</strong> {{this.quantity}}</p>
+      </div>
+    {{/each}}
+  </div>
+{{else}}
+  <p>El carrito está vacío.</p>
+{{/if}}

@@ -1,67 +1,107 @@
-# Proyecto E-commerce – Backend I
+# 🛒 Backend E-commerce - Entrega Final
 
-## Descripción
-
-Este proyecto es un **e-commerce simple** desarrollado con **Node.js, Express, Handlebars y Socket.io**, enfocado en la práctica de **WebSockets**. Permite:
-
-- Mostrar productos en una **vista principal (`home`)**.
-- Gestionar productos en **tiempo real (`realtimeproducts`)** mediante WebSockets.
-- Agregar y eliminar productos desde la vista en tiempo real, con actualización automática para todos los clientes conectados.
-
-Los productos se almacenan en un archivo JSON (`src/data/products.json`) utilizando la clase `ProductManager`.
+## 📌 Descripción
+Backend de una aplicación e-commerce desarrollado con Node.js, Express y MongoDB Atlas. Implementa arquitectura MVC, persistencia en base de datos, gestión de productos y carritos, y vistas con Handlebars.
 
 ---
 
-## Tecnologías
+## 🚀 Tecnologías utilizadas
 
 - Node.js
 - Express
+- MongoDB Atlas
+- Mongoose
 - Handlebars
 - Socket.io
-- JavaScript (ESModules)
-- JSON como almacenamiento de datos
+- Nodemon
+- Dotenv
+
 
 ---
 
 
-## Instalación
+## ⚙️ Instalación
 
-### Clonar el repositorio:
+1. Clonar el repositorio:
 
-```bash
-git clone <URL_REPO>
+  git clone <https://github.com/eduhartkopf/backend_I_entrega_final_Hartkopf.git>
 
-npm install express express-handlebars socket.io
+2. Instalación de dependencias:
 
-node app.js
+  npm install 
 
-### Uso:
+3. Crear .env
 
-Abrir navegador en http://localhost:8080/
- → Lista de productos (home).
+  MONGO_URI=mongodb+srv://eduhartkopf:hartkopf@backendunofinalhartkopf.fsieetz.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=BackendUnoFinalHartkopf
+  
+  PORT=8080
 
-Abrir http://localhost:8080/realtimeproducts
- → Vista en tiempo real con:
+4. Ejecutar servidor:
 
-Lista de productos.
+  npm run dev
 
-Formulario para agregar productos.
+---
 
-Botones para eliminar productos.
+## Endpoints
 
-Todos los cambios en esta vista se reflejan automáticamente para todos los clientes conectados gracias a WebSockets.
+  - GET /api/products → listado con paginación, filtros y orden
 
-### Notas
+  - GET /api/products/:pid → producto por ID
 
-Los productos se gestionan mediante ProductManager y se guardan en products.json.
+  - POST /api/products → crear producto
 
-La ruta /api/products permite operaciones REST sobre los productos (GET, POST, PUT, DELETE).
+  - PUT /api/products/:pid → actualizar producto
 
-La ruta /api/carts y la lógica de carritos ya no se utiliza, y fue removida del proyecto.
+  - DELETE /api/products/:pid → eliminar producto
 
-Se eliminó cualquier código de prueba anterior en server.js y cart.js para mantener el proyecto limpio y funcional.
+
+## Carritos
+
+  - POST /api/carts → crear carrito
+
+  - GET /api/carts/:cid → obtener carrito con     populate
+
+  - POST /api/carts/:cid/products/:pid → agregar producto al carrito
+
+  - PUT /api/carts/:cid → reemplazar carrito
+
+  - PUT /api/carts/:cid/products/:pid → actualizar cantidad
+
+  - DELETE /api/carts/:cid/products/:pid → eliminar producto
+  
+  - DELETE /api/carts/:cid → vaciar carrito
+
+
+## Vistas (Handlebars)
+
+  - /products → listado de productos con paginación
+
+  - /products/:pid → detalle del producto
+
+  - /carts/:cid → visualización del carrito
+
+## Funcionalidades destacadas
+
+    Paginación con mongoose-paginate-v2
+  
+    Filtros por categoría y disponibilidad
+
+    Ordenamiento por precio
+
+    Populate en carrito (referencias a productos)
+
+    Validaciones en endpoints
+
+    Manejo de errores
+    
+    Arquitectura modular (MVC)
+
+
+## Funcionalidades destacadas
+
+Las credenciales se manejan mediante variables de entorno (.env) y no estan expuestas en el repositorio.
 
 Autor:
 
-Jorge Hartkopf – Entrega de práctica Backend I
+Jorge Hartkopf – Entrega final Backend I
 ```

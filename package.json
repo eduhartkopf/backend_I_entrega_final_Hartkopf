@@ -2,18 +2,10 @@
   "name": "entrega_final_hartkopf",
   "version": "1.0.0",
   "type": "module",
-  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "scripts": {
-  "start": "node src/app.js",
-  "dev": "nodemon src/app.js"
-},
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+    "start": "node app.js",
+    "dev": "nodemon --watch src --ext js,json app.js"},
+
   "dependencies": {
     "dotenv": "^17.3.1",
     "express": "^5.2.1",

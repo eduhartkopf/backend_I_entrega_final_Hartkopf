@@ -1,4 +1,6 @@
 import express from "express";
+import dotenv from "dotenv";
+import { connectDB } from "./src/config/db.js";
 import { engine } from "express-handlebars";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -12,8 +14,13 @@ import ProductManager from "./src/managers/ProductManager.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+dotenv.config();
+
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
+
+// conexión a Mongo
+connectDB();
 
 // middlewares
 app.use(express.json());
@@ -37,16 +44,14 @@ app.use("/", viewsRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 
-// 🔹 servidor HTTP
+// servidor HTTP para socket.io
 const httpServer = http.createServer(app);
-
-// 🔹 socket.io (ACÁ se crea)
 const io = new Server(httpServer);
 
-// 🔹 managers
+// manager actual
 const productManager = new ProductManager("./src/data/products.json");
 
-// 🔹 sockets (DESPUÉS de crear io)
+// sockets
 io.on("connection", async (socket) => {
   console.log("Cliente conectado");
 

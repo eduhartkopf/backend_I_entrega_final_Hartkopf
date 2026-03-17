@@ -1,0 +1,34 @@
+<h1>Productos</h1>
+
+{{#if products.length}}
+  <div>
+    {{#each products}}
+      <div style="border: 1px solid #ccc; margin: 10px 0; padding: 10px;">
+        <h2>{{this.title}}</h2>
+        <p><strong>Descripción:</strong> {{this.description}}</p>
+        <p><strong>Precio:</strong> ${{this.price}}</p>
+        <p><strong>Categoría:</strong> {{this.category}}</p>
+        <p><strong>Stock:</strong> {{this.stock}}</p>
+        <p><strong>Disponible:</strong> {{this.status}}</p>
+
+        <a href="/products/{{this._id}}">Ver detalle</a>
+      </div>
+    {{/each}}
+  </div>
+{{else}}
+  <p>No hay productos para mostrar.</p>
+{{/if}}
+
+<hr />
+
+<div>
+  <p>Página actual: {{page}} / {{totalPages}}</p>
+
+  {{#if hasPrevPage}}
+    <a href="{{prevLink}}">⬅ Página anterior</a>
+  {{/if}}
+
+  {{#if hasNextPage}}
+    <a href="{{nextLink}}" style="margin-left: 20px;">Página siguiente ➡</a>
+  {{/if}}
+</div>
