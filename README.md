@@ -1,6 +1,7 @@
 # 🛒 Backend E-commerce - Entrega Final
 
 ## 📌 Descripción
+
 Backend de una aplicación e-commerce desarrollado con Node.js, Express y MongoDB Atlas. Implementa arquitectura MVC, persistencia en base de datos, gestión de productos y carritos, y vistas con Handlebars.
 
 ---
@@ -16,74 +17,72 @@ Backend de una aplicación e-commerce desarrollado con Node.js, Express y MongoD
 - Nodemon
 - Dotenv
 
-
 ---
-
 
 ## ⚙️ Instalación
 
 1. Clonar el repositorio:
 
-  git clone <https://github.com/eduhartkopf/backend_I_entrega_final_Hartkopf.git>
+git clone https://github.com/eduhartkopf/backend_I_entrega_final_Hartkopf.git
 
 2. Instalación de dependencias:
 
-  npm install 
+npm install
 
-3. Crear .env
+3. Crear archivo `.env`:
 
-  MONGO_URI=mongodb+srv://eduhartkopf:hartkopf@backendunofinalhartkopf.fsieetz.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=BackendUnoFinalHartkopf
-  
-  PORT=8080
+```env
+
+MONGO_URI=TU_URI_DE_MONGODB
+
+PORT=8080
 
 4. Ejecutar servidor:
 
-  npm run dev
+npm run dev
 
 ---
 
 ## Endpoints
 
-  - GET /api/products → listado con paginación, filtros y orden
+- GET /api/products → listado con paginación, filtros y orden
 
-  - GET /api/products/:pid → producto por ID
+- GET /api/products/:pid → producto por ID
 
-  - POST /api/products → crear producto
+- POST /api/products → crear producto
 
-  - PUT /api/products/:pid → actualizar producto
+- PUT /api/products/:pid → actualizar producto
 
-  - DELETE /api/products/:pid → eliminar producto
-
+- DELETE /api/products/:pid → eliminar producto
 
 ## Carritos
 
-  - POST /api/carts → crear carrito
+- POST /api/carts → crear carrito
 
-  - GET /api/carts/:cid → obtener carrito con     populate
+- GET /api/carts/:cid → obtener carrito con populate
 
-  - POST /api/carts/:cid/products/:pid → agregar producto al carrito
+- POST /api/carts/:cid/products/:pid → agregar producto al carrito
 
-  - PUT /api/carts/:cid → reemplazar carrito
+- PUT /api/carts/:cid → reemplazar carrito
 
-  - PUT /api/carts/:cid/products/:pid → actualizar cantidad
+- PUT /api/carts/:cid/products/:pid → actualizar cantidad
 
-  - DELETE /api/carts/:cid/products/:pid → eliminar producto
-  
-  - DELETE /api/carts/:cid → vaciar carrito
+- DELETE /api/carts/:cid/products/:pid → eliminar producto
 
+- DELETE /api/carts/:cid → vaciar carrito
 
 ## Vistas (Handlebars)
 
-  - /products → listado de productos con paginación
+- /products → listado de productos con paginación
 
-  - /products/:pid → detalle del producto
+- /products/:pid → detalle del producto
 
-  - /carts/:cid → visualización del carrito
+- /carts/:cid → visualización del carrito
 
 ## Funcionalidades destacadas
 
     Paginación con mongoose-paginate-v2
-  
+
     Filtros por categoría y disponibilidad
 
     Ordenamiento por precio
@@ -93,15 +92,15 @@ Backend de una aplicación e-commerce desarrollado con Node.js, Express y MongoD
     Validaciones en endpoints
 
     Manejo de errores
-    
+
     Arquitectura modular (MVC)
 
-
-## Funcionalidades destacadas
+## Credenciales
 
 Las credenciales se manejan mediante variables de entorno (.env) y no estan expuestas en el repositorio.
 
 Autor:
 
 Jorge Hartkopf – Entrega final Backend I
+
 ```

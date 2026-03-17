@@ -9,7 +9,7 @@ import { Server } from "socket.io";
 import productsRouter from "./src/routes/products.router.js";
 import cartsRouter from "./src/routes/carts.router.js";
 import viewsRouter from "./src/routes/views.router.js";
-import ProductManager from "./src/managers/ProductManager.js";
+import Product from "./src/models/product.model.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -48,26 +48,77 @@ app.use("/api/carts", cartsRouter);
 const httpServer = http.createServer(app);
 const io = new Server(httpServer);
 
-// manager actual
-const productManager = new ProductManager("./src/data/products.json");
-
-// sockets
+// sockets con Mongo
 io.on("connection", async (socket) => {
   console.log("Cliente conectado");
 
-  const products = await productManager.getProducts();
-  socket.emit("products", products);
+  try {
+    const products = await Product.find().lean();
+    socket.emit("products", products);
+  } catch (error) {
+    console.error("Error al cargar productos por socket:", error.message);
+  }
 
   socket.on("createProduct", async (product) => {
-    await productManager.addProduct(product);
-    const updatedProducts = await productManager.getProducts();
-    io.emit("products", updatedProducts);
+    try {
+      const {
+        title,
+        description,
+        code,
+        price,
+        stock,
+        category,
+        thumbnails,
+        status,
+      } = product;
+
+      if (
+        !title ||
+        !description ||
+        !code ||
+        price === undefined ||
+        stock === undefined ||
+        !category
+      ) {
+        socket.emit("productError", "Faltan campos obligatorios");
+        return;
+      }
+
+      const existingProduct = await Product.findOne({ code });
+      if (existingProduct) {
+        socket.emit("productError", "Ya existe un producto con ese code");
+        return;
+      }
+
+      await Product.create({
+        title,
+        description,
+        code,
+        price: Number(price),
+        stock: Number(stock),
+        category,
+        thumbnails: thumbnails || [],
+        status: status !== undefined ? status : true,
+      });
+
+      const updatedProducts = await Product.find().lean();
+      io.emit("products", updatedProducts);
+    } catch (error) {
+      console.error("Error al crear producto por socket:", error.message);
+      socket.emit("productError", "Error al crear producto");
+    }
   });
 
   socket.on("deleteProduct", async (id) => {
-    await productManager.deleteProduct(id);
-    const updatedProducts = await productManager.getProducts();
-    io.emit("products", updatedProducts);
+    try {
+      await Product.findByIdAndDelete(id);
+
+      const updatedProducts = await Product.find().lean();
+      io.emit("products", updatedProducts);
+    } catch (error) {
+      console.error("Error al eliminar producto por socket:", error.message);
+      socket.emit("productError", "Error al eliminar producto");
+    }
   });
 });
 

@@ -55,7 +55,7 @@ export default class ProductManager {
     products[index] = {
       ...products[index],
       ...updatedFields,
-      id, // Esto hace que el ID permanezca sin modificarse.
+      id, 
     };
 
     await fs.writeFile(this.path, JSON.stringify(products, null, 2));
